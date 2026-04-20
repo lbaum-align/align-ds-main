@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Tag tints</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:20px;background:var(--ads-bg-surface);font-family:var(--ads-font-sans);}
+  .grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start}
+  .col{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+  .tag{font-size:12px;line-height:16px;padding:4px 10px;border-radius:28px;border:1px solid;text-align:center}
+  .hex{font-size:10px;color:var(--ads-text-muted);line-height:14px;font-family:ui-monospace,Menlo,monospace}
+</style></head><body>
+<div class="grid">
+  <div class="col"><span class="tag" style="background:var(--ads-tag-blue-bg);border-color:var(--ads-tag-blue-br);color:var(--ads-blue-text)">Blue tag</span><span class="hex">var(--ads-tag-blue-bg) / var(--ads-blue-text)</span></div>
+  <div class="col"><span class="tag" style="background:#DCFCE8;border-color:#B2EDC8;color:#006131">Green tag</span><span class="hex">#DCFCE8 / #006131</span></div>
+  <div class="col"><span class="tag" style="background:#FFF0F9;border-color:#FCD4EC;color:#A30564">Red tag</span><span class="hex">#FFF0F9 / #A30564</span></div>
+  <div class="col"><span class="tag" style="background:#FFF0E5;border-color:#F7DAC8;color:#A04000">Orange tag</span><span class="hex">#FFF0E5 / #A04000</span></div>
+  <div class="col"><span class="tag" style="background:#F3EBFF;border-color:#DCCDF5;color:#542196">Purple tag</span><span class="hex">#F3EBFF / #542196</span></div>
+  <div class="col"><span class="tag" style="background:#FFF0F9;border-color:#FCD4EC;color:#A30564">Magenta tag</span><span class="hex">#FFF0F9 / #A30564</span></div>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

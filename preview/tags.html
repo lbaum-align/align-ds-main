@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Tags</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:24px;background:var(--ads-bg-surface);font-family:var(--ads-font-sans);color:var(--ads-text-primary)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .t{font-size:12px;line-height:16px;padding:4px 10px;border-radius:28px;border:1px solid}
+  .h{font-size:11px;color:var(--ads-text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+</style></head><body>
+<div class="h">Small tags (Size=Small, 24px tall)</div>
+<div class="row">
+  <span class="t" style="background:var(--ads-tag-blue-bg);border-color:var(--ads-tag-blue-br);color:var(--ads-blue-text)">Blue</span>
+  <span class="t" style="background:#DCFCE8;border-color:#B2EDC8;color:#006131">Green</span>
+  <span class="t" style="background:#FFF0F9;border-color:#FCD4EC;color:#A30564">Red</span>
+  <span class="t" style="background:#FFF0E5;border-color:#F7DAC8;color:#A04000">Orange</span>
+  <span class="t" style="background:#F3EBFF;border-color:#DCCDF5;color:#542196">Purple</span>
+  <span class="t" style="background:#FFF0F9;border-color:#FCD4EC;color:#A30564">Magenta</span>
+</div>
+<div class="h">Dismissible</div>
+<div class="row">
+  <span class="t" style="background:var(--ads-tag-blue-bg);border-color:var(--ads-tag-blue-br);color:var(--ads-blue-text);display:inline-flex;gap:4px;align-items:center;padding-right:6px">In treatment <svg width="12" height="12" viewBox="0 0 12 12" stroke="var(--ads-blue-text)" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg></span>
+  <span class="t" style="background:#DCFCE8;border-color:#B2EDC8;color:#006131;display:inline-flex;gap:4px;align-items:center;padding-right:6px">Approved <svg width="12" height="12" viewBox="0 0 12 12" stroke="#006131" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg></span>
+  <span class="t" style="background:#FFF0F9;border-color:#FCD4EC;color:#A30564;display:inline-flex;gap:4px;align-items:center;padding-right:6px">Rejected <svg width="12" height="12" viewBox="0 0 12 12" stroke="#A30564" stroke-width="1.5" stroke-linecap="round"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg></span>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

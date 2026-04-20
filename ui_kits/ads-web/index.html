@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ADS — Align Design System · Doctor Site</title>
+<meta name="viewport" content="width=1280, initial-scale=1" />
+<link rel="stylesheet" href="../../colors_and_type.css?v=4" />
+<link rel="stylesheet" href="ui.css?v=10" />
+<script>
+  // Apply saved theme before first paint to avoid a flash.
+  (function(){
+    try {
+      var t = localStorage.getItem('ads_theme') || 'align-dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'align-dark');
+    }
+  })();
+</script>
+<style>
+  /* Bundler thumbnail (required for standalone export) */
+  .__bundler_thumb { display: none; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="120" fill="#F4F4F4"/>
+    <rect x="18" y="18" width="84" height="84" rx="6" fill="#009ACE"/>
+    <text x="60" y="72" text-anchor="middle" font-family="Roboto, sans-serif" font-weight="500" font-size="36" fill="#fff">ADS</text>
+  </svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="Shell.jsx"></script>
+<script type="text/babel" src="Kit.jsx"></script>
+<script type="text/babel" src="Screens.jsx"></script>
+
+<script type="text/babel">
+  const { useState, useEffect } = React;
+  const { LeftRail, TopBar } = window.Shell;
+  const { Home, Cases, CaseDetail, NewRequestForm } = window.Screens;
+  const { Modal, Notification, Button } = window.Kit;
+
+  const HASH_VIEWS = ['home', 'cases', 'caseDetail', 'newRequest', 'patients', 'scans', 'messages', 'settings'];
+  const readHashView = () => {
+    const h = (location.hash || '').replace(/^#\/?/, '');
+    return HASH_VIEWS.includes(h) ? h : null;
+  };
+
+  function App() {
+    const [nav, setNav] = useState(() => localStorage.getItem('ads_nav') || 'home');
+    const [view, setView] = useState(() => readHashView() || localStorage.getItem('ads_view') || 'home');
+    const [theme, setTheme] = useState(() => localStorage.getItem('ads_theme') || 'align-dark');
+    const [railCollapsed, setRailCollapsed] = useState(() => localStorage.getItem('ads_rail_collapsed') === '1');
+    const [deleteOpen, setDeleteOpen] = useState(false);
+    const [toasts, setToasts] = useState([]);
+
+    useEffect(() => { localStorage.setItem('ads_nav', nav); }, [nav]);
+    useEffect(() => { localStorage.setItem('ads_view', view); }, [view]);
+    useEffect(() => { localStorage.setItem('ads_rail_collapsed', railCollapsed ? '1' : '0'); }, [railCollapsed]);
+    useEffect(() => {
+      localStorage.setItem('ads_theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    }, [theme]);
+
+    useEffect(() => {
+      const sync = () => { const v = readHashView(); if (v) go(v); };
+      window.addEventListener('hashchange', sync);
+      return () => window.removeEventListener('hashchange', sync);
+    }, []);
+
+    const go = (v) => {
+      setView(v);
+      if (v === 'home') setNav('home');
+      if (v === 'cases' || v === 'caseDetail') setNav('cases');
+      if (v === 'newRequest') setNav('home');
+    };
+
+    const pushToast = (t) => {
+      const id = Math.random().toString(36).slice(2);
+      setToasts(ts => [...ts, { id, ...t }]);
+      setTimeout(() => setToasts(ts => ts.filter(x => x.id !== id)), 4500);
+    };
+
+    // main view
+    let body;
+    if (view === 'home') body = <Home go={go} openNewRequest={() => go('newRequest')} />;
+    else if (view === 'cases') body = (
+      <div onClick={e => {
+        // delegate table-row click to open detail
+        const row = e.target.closest('tbody tr');
+        if (row && !e.target.closest('button,a,.cbx,.check')) go('caseDetail');
+      }}><Cases /></div>
+    );
+    else if (view === 'caseDetail') body = <CaseDetail openDelete={() => setDeleteOpen(true)} />;
+    else if (view === 'newRequest') body = <NewRequestForm onCancel={() => go('home')} onSubmit={() => { pushToast({ tone: 'success', title: 'Request submitted:', body: 'the ADS team will respond within 2 business days.' }); go('home'); }} />;
+    else body = <Home go={go} openNewRequest={() => go('newRequest')} />;
+
+    // handle nav side-effect
+    const onNav = (k) => {
+      setNav(k);
+      if (k === 'home') setView('home');
+      if (k === 'cases') setView('cases');
+      if (k === 'patients' || k === 'scans' || k === 'messages' || k === 'settings') setView(k);
+    };
+
+    return (
+      <div className={`app ${railCollapsed ? 'rail-collapsed' : ''}`}>
+        <LeftRail nav={nav} setNav={onNav}
+          collapsed={railCollapsed}
+          onToggleCollapsed={() => setRailCollapsed(c => !c)} />
+        <div>
+          <TopBar
+            onNew={() => go('newRequest')}
+            theme={theme}
+            onThemeToggle={() => setTheme(t => t === 'align-dark' ? 'align-light' : 'align-dark')}
+          />
+          {['patients', 'scans', 'messages', 'settings'].includes(view) ? (
+            <div className="page">
+              <div className="page-head"><h1>{view[0].toUpperCase() + view.slice(1)}</h1></div>
+              <div className="card" style={{padding: '40px', textAlign: 'center', color: 'var(--ads-text-muted)'}}>
+                This area isn't wired up in the UI kit demo — the ADS components are shown on <a className="link" onClick={() => go('home')}>Home</a>, <a className="link" onClick={() => go('cases')}>Cases</a>, the case detail view, and the <a className="link" onClick={() => go('newRequest')}>new request form</a>.
+              </div>
+            </div>
+          ) : body}
+        </div>
+
+        <Modal open={deleteOpen} onClose={() => setDeleteOpen(false)} title="Delete case file?" footer={
+          <>
+            <Button variant="secondary" onClick={() => setDeleteOpen(false)}>Cancel</Button>
+            <Button danger onClick={() => { setDeleteOpen(false); pushToast({ tone: 'success', title: 'Case deleted:', body: '#AT-09244 removed from your list.' }); go('cases'); }}>Delete case</Button>
+          </>
+        }>
+          This will permanently remove case <b>#AT-09244</b> and all related scans. This action cannot be undone.
+        </Modal>
+
+        <div className="toast-stack">
+          {toasts.map(t => (
+            <Notification key={t.id} tone={t.tone} title={t.title} body={t.body} onClose={() => setToasts(ts => ts.filter(x => x.id !== t.id))} />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

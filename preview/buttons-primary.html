@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Buttons — Primary / Secondary</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:24px;background:var(--ads-bg-surface);font-family:var(--ads-font-sans);color:var(--ads-text-primary)}
+  .grid{display:grid;grid-template-columns:repeat(5,auto);gap:14px 12px;align-items:center;justify-content:start}
+  .h{font-size:11px;color:var(--ads-text-muted);letter-spacing:.04em;text-transform:uppercase}
+  .btn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--ads-font-sans);font-size:14px;line-height:18px;height:44px;padding:0 16px;border-radius:4px;border:0;cursor:pointer;transition:background 180ms,color 180ms,border-color 180ms}
+  .pri{background:var(--ads-blue-500);color:var(--ads-bg-surface)}
+  .pri.hov{background:var(--ads-blue-600)}
+  .pri.pre{background:var(--ads-blue-700)}
+  .pri.foc{background:var(--ads-blue-500);outline:1px solid var(--ads-blue-500);outline-offset:1px;box-shadow:inset 0 0 0 1px var(--ads-bg-surface)}
+  .pri.dis{background:var(--ads-bg-muted);color:var(--ads-text-disabled);cursor:not-allowed}
+  .sec{background:var(--ads-bg-surface);color:var(--ads-text-strong);border:1px solid var(--ads-border-strong)}
+  .sec.hov{background:var(--ads-bg-muted)}
+  .sec.pre{background:var(--ads-bg-subtle)}
+  .sec.foc{outline:1px solid var(--ads-blue-500);outline-offset:1px}
+  .sec.dis{background:var(--ads-bg-muted);color:var(--ads-text-disabled);border-color:transparent;cursor:not-allowed}
+  .cap{font-size:11px;color:var(--ads-text-muted);text-align:center;font-family:ui-monospace,Menlo,monospace}
+</style></head><body>
+<div class="grid">
+  <div class="h">Primary</div>
+  <button class="btn pri">Enabled</button>
+  <button class="btn pri hov">Hovered</button>
+  <button class="btn pri pre">Pressed</button>
+  <button class="btn pri dis">Disabled</button>
+
+  <div class="h">Secondary</div>
+  <button class="btn sec">Enabled</button>
+  <button class="btn sec hov">Hovered</button>
+  <button class="btn sec pre">Pressed</button>
+  <button class="btn sec dis">Disabled</button>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

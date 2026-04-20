@@ -1,0 +1,64 @@
+/* Preview theme toggle — shared by every component preview page.
+   Adds a floating pill in the top-right that flips data-theme on <html>.
+   Overrides the hardcoded `body { background: #fff }` that preview pages
+   inline, so the page canvas follows the selected theme.
+*/
+
+/* Swap the preview page's canvas + text to theme-aware tokens.
+   Light mode uses white surface for a cleaner per-component canvas;
+   dark mode uses the deeper page tone. !important overrides the hardcoded
+   body { background:#fff } each preview inlines in its own <style>.
+*/
+html[data-theme="align-light"] body {
+  background: var(--ads-bg-surface) !important;
+  color: var(--ads-text-primary) !important;
+  transition: background-color 180ms, color 180ms;
+}
+html[data-theme="align-dark"] body {
+  background: var(--ads-bg-page) !important;
+  color: var(--ads-text-primary) !important;
+  transition: background-color 180ms, color 180ms;
+}
+
+/* Some previews put their own white panels inside body.
+   These helpers opt in — previews add class="pv-surface" on chunks
+   that should flip from white → dark-surface.
+*/
+.pv-surface { background: var(--ads-bg-surface); color: var(--ads-text-primary); }
+.pv-muted-bg { background: var(--ads-bg-muted); }
+
+/* The floating toggle itself */
+.pv-theme-toggle {
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px 0 8px;
+  border-radius: 999px;
+  border: 1px solid var(--ads-border-subtle);
+  background: var(--ads-bg-surface);
+  color: var(--ads-text-primary);
+  font: 500 12px/1 var(--ads-font-sans);
+  cursor: pointer;
+  box-shadow: var(--ads-shadow-sm);
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+.pv-theme-toggle:hover { background: var(--ads-bg-muted); }
+.pv-theme-toggle:focus-visible { outline: 1px solid var(--ads-focus-ring); outline-offset: 2px; }
+.pv-theme-toggle svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pv-theme-toggle[data-mode="align-dark"] .pv-sun  { display: inline-block; }
+.pv-theme-toggle[data-mode="align-dark"] .pv-moon { display: none; }
+.pv-theme-toggle[data-mode="align-light"] .pv-sun  { display: none; }
+.pv-theme-toggle[data-mode="align-light"] .pv-moon { display: inline-block; }

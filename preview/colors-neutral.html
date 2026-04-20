@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Colors — Neutral</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:20px;background:var(--ads-bg-surface);font-family:var(--ads-font-sans);}
+  .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .sw{border-radius:4px;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+  .chip{height:48px}
+  .meta{padding:6px 10px}
+  .name{font-size:12px;font-weight:500;color:var(--ads-text-primary);line-height:16px}
+  .hex{font-size:11px;color:var(--ads-text-muted);line-height:14px;font-family:ui-monospace,Menlo,monospace;margin-top:2px}
+  .row{margin-bottom:10px}
+  .lbl{font-size:11px;color:var(--ads-text-muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:6px}
+</style></head><body>
+<div class="row">
+  <div class="lbl">Surface</div>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:var(--ads-bg-surface);border:1px solid #eee"></div><div class="meta"><div class="name">Surface</div><div class="hex">var(--ads-bg-surface)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-bg-page)"></div><div class="meta"><div class="name">Page</div><div class="hex">var(--ads-bg-page)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-bg-muted)"></div><div class="meta"><div class="name">Muted</div><div class="hex">var(--ads-bg-muted)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-bg-subtle)"></div><div class="meta"><div class="name">Subtle</div><div class="hex">var(--ads-bg-subtle)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-bg-inverse)"></div><div class="meta"><div class="name">Inverse</div><div class="hex">var(--ads-bg-inverse)</div></div></div>
+  </div>
+</div>
+<div class="row">
+  <div class="lbl">Text (black alpha)</div>
+  <div class="grid">
+    <div class="sw"><div class="chip" style="background:var(--ads-text-primary)"></div><div class="meta"><div class="name">Primary</div><div class="hex">var(--ads-text-primary)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-text-muted)"></div><div class="meta"><div class="name">Muted</div><div class="hex">var(--ads-text-muted)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-text-subtle)"></div><div class="meta"><div class="name">Subtle</div><div class="hex">var(--ads-text-subtle)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-border-strong)"></div><div class="meta"><div class="name">Placeholder</div><div class="hex">var(--ads-border-strong)</div></div></div>
+    <div class="sw"><div class="chip" style="background:var(--ads-text-disabled)"></div><div class="meta"><div class="name">Disabled</div><div class="hex">var(--ads-text-disabled)</div></div></div>
+  </div>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

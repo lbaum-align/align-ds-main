@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Type scale</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:24px;background:var(--ads-bg-surface);font-family:var(--ads-font-sans)}
+  .row{display:grid;grid-template-columns:120px 1fr 140px;gap:16px;align-items:baseline;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)}
+  .row:last-child{border-bottom:0}
+  .lbl{font-size:12px;color:var(--ads-text-muted);font-family:ui-monospace,Menlo,monospace}
+  .specimen{color:var(--ads-text-primary)}
+  .meta{font-size:11px;color:var(--ads-text-muted);font-family:ui-monospace,Menlo,monospace;text-align:right}
+</style></head><body>
+<div class="row"><div class="lbl">Display</div><div class="specimen" style="font-weight:300;font-size:44px;line-height:52px">Align web components</div><div class="meta">300 · 44/52</div></div>
+<div class="row"><div class="lbl">H1</div><div class="specimen" style="font-weight:500;font-size:28px;line-height:36px">The process of adding a request</div><div class="meta">500 · 28/36</div></div>
+<div class="row"><div class="lbl">H2 / Section</div><div class="specimen" style="font-weight:500;font-size:20px;line-height:28px">Introduction</div><div class="meta">500 · 20/28</div></div>
+<div class="row"><div class="lbl">H3 / Card</div><div class="specimen" style="font-weight:500;font-size:17px;line-height:24px">Headline</div><div class="meta">500 · 17/24</div></div>
+<div class="row"><div class="lbl">Body</div><div class="specimen" style="font-weight:400;font-size:14px;line-height:20px">All inquiries are accepted in Jira. This space was chosen to keep track of all requests in one place.</div><div class="meta">400 · 14/20</div></div>
+<div class="row"><div class="lbl">Caption</div><div class="specimen" style="font-weight:400;font-size:12px;line-height:16px;color:var(--ads-text-label)">Optional helper text</div><div class="meta">400 · 12/16</div></div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

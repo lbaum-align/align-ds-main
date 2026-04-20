@@ -1,0 +1,30 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Notifications</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:20px;background:var(--ads-bg-page);font-family:var(--ads-font-sans);color:var(--ads-text-primary)}
+  .stack{display:flex;flex-direction:column;gap:10px}
+  .toast{position:relative;background:var(--ads-bg-surface);border-radius:4px;box-shadow:0 4px 12px rgba(0,0,0,.08);padding:12px 16px 12px 32px;font-size:14px;line-height:20px;display:flex;gap:8px;align-items:flex-start}
+  .toast::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;border-radius:4px 0 0 4px}
+  .s::before{background:#25764A}
+  .e::before{background:#D43F58}
+  .w::before{background:#FA8E41}
+  .i::before{background:var(--ads-blue-500)}
+  .icon{flex:0 0 20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--ads-bg-surface);font-size:12px;font-weight:700}
+  .s .icon{background:#25764A}
+  .e .icon{background:#D43F58}
+  .w .icon{background:#FA8E41}
+  .i .icon{background:var(--ads-blue-500)}
+  .hd{font-weight:500}
+  .sub{color:var(--ads-text-muted)}
+  .close{margin-left:auto;color:var(--ads-text-muted);cursor:pointer}
+</style></head><body>
+<div class="stack">
+  <div class="toast s"><span class="icon">✓</span><div><span class="hd">Scan uploaded:</span> <span class="sub">patient file ready for review.</span></div><span class="close">×</span></div>
+  <div class="toast e"><span class="icon">!</span><div><span class="hd">Submission failed:</span> <span class="sub">check your connection and retry.</span></div><span class="close">×</span></div>
+  <div class="toast w"><span class="icon">!</span><div><span class="hd">Expiring soon:</span> <span class="sub">treatment plan needs review before Friday.</span></div><span class="close">×</span></div>
+  <div class="toast i"><span class="icon">i</span><div><span class="hd">New release:</span> <span class="sub">v0.9.1 is now available in the library.</span></div><span class="close">×</span></div>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

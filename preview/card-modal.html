@@ -1,0 +1,44 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Card / Modal</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:24px;background:var(--ads-bg-page);font-family:var(--ads-font-sans);color:var(--ads-text-primary)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:flex-start}
+  /* Cards carry the same elevation as the modal so they read as
+     floating surfaces against the page bg in both themes. */
+  .card{background:var(--ads-bg-surface);border-radius:4px;overflow:hidden;box-shadow:var(--ads-shadow-lg)}
+  .card .hd{padding:16px;display:flex;align-items:center;justify-content:space-between}
+  .card .hd h4{font-size:17px;font-weight:500;line-height:24px;margin:0}
+  .card .hd .chev{color:var(--ads-text-muted);font-size:18px}
+  .card .bd{padding:0 16px 16px;font-size:14px;line-height:20px;color:var(--ads-text-primary)}
+  .card .bd p{margin:0;color:var(--ads-text-muted)}
+  .modal{background:var(--ads-bg-surface);border-radius:4px;box-shadow:var(--ads-shadow-lg);width:420px;overflow:hidden}
+  .modal .hd{padding:20px 20px 0}
+  .modal .hd h3{font-size:20px;font-weight:500;line-height:28px;margin:0}
+  .modal .bd{padding:12px 20px 20px;font-size:14px;line-height:20px;color:var(--ads-text-muted)}
+  .modal .ft{padding:12px 20px;border-top:1px solid var(--ads-border-subtle);display:flex;gap:8px;justify-content:flex-end}
+  .btn{height:36px;padding:0 16px;border-radius:4px;font-size:14px;line-height:18px;border:0;cursor:pointer}
+  .pri{background:var(--ads-blue-500);color:var(--ads-bg-surface)}
+  .sec{background:var(--ads-bg-surface);border:1px solid var(--ads-border-strong);color:var(--ads-text-strong)}
+</style></head><body>
+<div class="grid">
+  <div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="hd"><h4>Patient profile</h4><span class="chev">⌵</span></div>
+    </div>
+    <div class="card">
+      <div class="hd"><h4>Treatment history</h4><span class="chev">⌃</span></div>
+      <div class="bd"><p>Case #AT-09244 opened 12 Mar. Last scan uploaded 2 days ago.</p></div>
+    </div>
+  </div>
+  <div>
+    <div class="modal">
+      <div class="hd"><h3>Delete case file?</h3></div>
+      <div class="bd">This will permanently remove the case and all related scans. This action cannot be undone.</div>
+      <div class="ft"><button class="btn sec">Cancel</button><button class="btn pri" style="background:#CF2E38">Delete</button></div>
+    </div>
+  </div>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Align Design System — Browser</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="colors_and_type.css?v=5" />
+<link rel="stylesheet" href="ui_kits/ads-web/ui.css?v=13" />
+<script>
+  (function () {
+    try {
+      var t = localStorage.getItem('ads_theme') || 'align-dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'align-dark');
+    }
+  })();
+</script>
+<style>
+  html, body { height: 100%; }
+  .browser-main { display: flex; flex-direction: column; min-width: 0; min-height: 100vh; background: var(--ads-bg-surface); }
+  .browser-frame { flex: 1 1 auto; width: 100%; height: 100%; min-height: 100vh; border: 0; display: block; background: var(--ads-bg-surface); }
+
+  /* In light mode the whole browser shell sits on surface (white) so the
+     iframe content blends seamlessly with the chrome instead of floating
+     on a gray page. Dark mode keeps its stepped surfaces for contrast. */
+  html[data-theme="align-light"] body,
+  html[data-theme="align-light"] .app,
+  html[data-theme="align-light"] .browser-main { background: var(--ads-bg-surface); }
+  html[data-theme="align-dark"] .browser-main { background: var(--ads-bg-page); }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="ui_kits/ads-web/Shell.jsx"></script>
+
+<script type="text/babel">
+  const { useState, useEffect, useMemo, useCallback } = React;
+  const { LeftRail } = window.Shell;
+
+  const GROUPS = [
+    {
+      id: 'foundations',
+      label: 'Foundations',
+      icon: 'layers',
+      items: [
+        { id: 'colors-blue',    label: 'Colors — Blue',       icon: 'droplet',  src: 'preview/colors-blue.html' },
+        { id: 'colors-neutral', label: 'Colors — Neutral',    icon: 'palette',  src: 'preview/colors-neutral.html' },
+        { id: 'colors-status',  label: 'Colors — Status',     icon: 'palette',  src: 'preview/colors-status.html' },
+        { id: 'colors-tags',    label: 'Colors — Tag tints',  icon: 'palette',  src: 'preview/colors-tags.html' },
+        { id: 'type-scale',     label: 'Type — Scale',        icon: 'type',     src: 'preview/type-scale.html' },
+        { id: 'type-weights',   label: 'Type — Weights',      icon: 'weight',   src: 'preview/type-weights.html' },
+        { id: 'spacing',        label: 'Spacing',             icon: 'ruler',    src: 'preview/spacing.html' },
+        { id: 'radii-shadows',  label: 'Radii & shadows',     icon: 'corners',  src: 'preview/radii-shadows.html' },
+        { id: 'iconography',    label: 'Iconography',         icon: 'star',     src: 'preview/iconography.html' },
+        { id: 'logo',           label: 'Logo',                icon: 'logo-mark',src: 'preview/logo.html' },
+      ],
+    },
+    {
+      id: 'components',
+      label: 'Components',
+      icon: 'blocks',
+      items: [
+        { id: 'buttons-primary',     label: 'Buttons — Primary/Secondary', icon: 'button',       src: 'preview/buttons-primary.html' },
+        { id: 'buttons-other',       label: 'Buttons — Other',             icon: 'button',       src: 'preview/buttons-other.html' },
+        { id: 'form-fields',         label: 'Form fields',                 icon: 'form',         src: 'preview/form-fields.html' },
+        { id: 'selection-controls',  label: 'Selection controls',          icon: 'check-square', src: 'preview/selection-controls.html' },
+        { id: 'tags',                label: 'Tags',                        icon: 'tag',          src: 'preview/tags.html' },
+        { id: 'avatars-progress',    label: 'Avatars & progress',          icon: 'avatar-ring',  src: 'preview/avatars-progress.html' },
+        { id: 'notifications',       label: 'Notifications',               icon: 'bell',         src: 'preview/notifications.html' },
+        { id: 'card-modal',          label: 'Card & modal',                icon: 'card',         src: 'preview/card-modal.html' },
+      ],
+    },
+    {
+      id: 'ui-kit',
+      label: 'UI Kit',
+      icon: 'layout',
+      items: [
+        { id: 'ads-web-full', label: 'ADS Web — full app', icon: 'browser', src: 'ui_kits/ads-web/index.html' },
+      ],
+    },
+    {
+      id: 'ads-web',
+      label: 'Ads / Web',
+      icon: 'browser',
+      items: [
+        { id: 'ads-home',        label: 'Dashboard (Home)',  icon: 'grid-dashboard', src: 'ui_kits/ads-web/index.html#home' },
+        { id: 'ads-cases',       label: 'Cases list',        icon: 'cases',          src: 'ui_kits/ads-web/index.html#cases' },
+        { id: 'ads-case-detail', label: 'Case detail',       icon: 'document',       src: 'ui_kits/ads-web/index.html#caseDetail' },
+        { id: 'ads-new-request', label: 'New request form',  icon: 'edit',           src: 'ui_kits/ads-web/index.html#newRequest' },
+      ],
+    },
+  ];
+
+  const ITEM_INDEX = (() => {
+    const out = {};
+    GROUPS.forEach(g => g.items.forEach(it => { out[it.id] = { ...it, group: g.id }; }));
+    return out;
+  })();
+
+  const DEFAULT_ITEM = GROUPS[0].items[0].id;
+
+  function readHash() {
+    const raw = (location.hash || '').replace(/^#\/?/, '');
+    if (!raw) return null;
+    const [, item] = raw.split('/');
+    const id = item || raw;
+    return ITEM_INDEX[id] ? id : null;
+  }
+
+  function writeHash(groupId, itemId) {
+    const next = `#/${groupId}/${itemId}`;
+    if (location.hash !== next) {
+      history.replaceState(null, '', next);
+    }
+  }
+
+  function App() {
+    const [active, setActive] = useState(() => readHash() || DEFAULT_ITEM);
+    const [collapsed, setCollapsed] = useState(() => localStorage.getItem('ads_browser_rail_collapsed') === '1');
+    const [expanded, setExpanded] = useState(() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem('ads_browser_expanded') || 'null');
+        if (Array.isArray(saved)) return new Set(saved);
+      } catch (e) {}
+      return new Set(GROUPS.map(g => g.id));
+    });
+
+    const currentGroup = ITEM_INDEX[active] ? ITEM_INDEX[active].group : GROUPS[0].id;
+
+    useEffect(() => {
+      localStorage.setItem('ads_browser_rail_collapsed', collapsed ? '1' : '0');
+    }, [collapsed]);
+
+    useEffect(() => {
+      localStorage.setItem('ads_browser_expanded', JSON.stringify(Array.from(expanded)));
+    }, [expanded]);
+
+    useEffect(() => {
+      writeHash(currentGroup, active);
+    }, [active, currentGroup]);
+
+    useEffect(() => {
+      const onHash = () => {
+        const next = readHash();
+        if (next && next !== active) setActive(next);
+      };
+      window.addEventListener('hashchange', onHash);
+      return () => window.removeEventListener('hashchange', onHash);
+    }, [active]);
+
+    useEffect(() => {
+      setExpanded(prev => {
+        if (prev.has(currentGroup)) return prev;
+        const next = new Set(prev);
+        next.add(currentGroup);
+        return next;
+      });
+    }, [currentGroup]);
+
+    const onSelect = useCallback((id) => {
+      if (ITEM_INDEX[id]) setActive(id);
+    }, []);
+
+    const onToggleGroup = useCallback((id) => {
+      setExpanded(prev => {
+        const next = new Set(prev);
+        if (next.has(id)) next.delete(id); else next.add(id);
+        return next;
+      });
+    }, []);
+
+    const item = ITEM_INDEX[active] || ITEM_INDEX[DEFAULT_ITEM];
+    const src = item.src;
+
+    return (
+      <div className={`app ${collapsed ? 'rail-collapsed' : ''}`}>
+        <LeftRail
+          nav={active}
+          setNav={onSelect}
+          collapsed={collapsed}
+          onToggleCollapsed={() => setCollapsed(c => !c)}
+          groups={GROUPS}
+          expandedGroups={expanded}
+          onToggleGroup={onToggleGroup}
+        />
+        <main className="browser-main">
+          <iframe
+            key={src}
+            className="browser-frame"
+            src={src}
+            title={item.label}
+          />
+        </main>
+      </div>
+    );
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

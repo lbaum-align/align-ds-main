@@ -1,0 +1,61 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Radii & elevation</title>
+<link rel="stylesheet" href="../colors_and_type.css?v=5">
+<link rel="stylesheet" href="preview-theme.css?v=3">
+<style>
+  body{margin:0;padding:24px;background:var(--ads-bg-page);font-family:var(--ads-font-sans);color:var(--ads-text-primary)}
+  .split{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:stretch}
+  .panel{background:var(--ads-bg-surface);border-radius:4px;padding:20px}
+  .h{font-size:11px;color:var(--ads-text-muted);letter-spacing:.06em;text-transform:uppercase;margin:0 0 16px;font-weight:500}
+  /* Radii */
+  .rad-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+  .rad-cell{display:flex;flex-direction:column;align-items:center;gap:8px}
+  .rad-shape{width:52px;height:52px;background:var(--ads-tag-blue-bg);border:1.5px solid var(--ads-tag-blue-br);position:relative}
+  .rad-shape.pill{width:64px;height:28px}
+  .rad-shape.circle{border-radius:50%}
+  .rad-tok{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--ads-text-primary);line-height:14px;text-align:center}
+  .rad-val{font-size:10px;color:var(--ads-text-muted);text-align:center;line-height:14px}
+  /* Elevation */
+  .elev-stack{display:flex;flex-direction:column;gap:16px}
+  .elev-row{display:grid;grid-template-columns:64px 1fr;align-items:center;gap:14px}
+  .elev-surface{height:44px;background:var(--ads-bg-surface);border-radius:4px}
+  .elev-sm{box-shadow:0 2px 12px 0 rgba(0,0,0,.125)}
+  .elev-md{box-shadow:0 4px 12px 0 rgba(0,0,0,.08)}
+  .elev-lg{box-shadow:0 8px 24px 0 rgba(0,0,0,.12)}
+  .elev-meta{display:flex;flex-direction:column;gap:2px}
+  .elev-name{font-size:12px;font-weight:500;color:var(--ads-text-primary);line-height:16px}
+  .elev-use{font-size:11px;color:var(--ads-text-muted);line-height:14px}
+  .elev-tok{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:var(--ads-text-primary);text-align:right}
+</style></head><body>
+<div class="split">
+  <div class="panel">
+    <div class="h">Corner radius</div>
+    <div class="rad-grid">
+      <div class="rad-cell"><div class="rad-shape" style="border-radius:0"></div><div class="rad-tok">radius-0</div><div class="rad-val">0</div></div>
+      <div class="rad-cell"><div class="rad-shape" style="border-radius:2px"></div><div class="rad-tok">radius-xs</div><div class="rad-val">2</div></div>
+      <div class="rad-cell"><div class="rad-shape" style="border-radius:4px"></div><div class="rad-tok">radius-sm</div><div class="rad-val">4 · default</div></div>
+      <div class="rad-cell"><div class="rad-shape" style="border-radius:8px"></div><div class="rad-tok">radius-md</div><div class="rad-val">8</div></div>
+      <div class="rad-cell"><div class="rad-shape pill" style="border-radius:28px"></div><div class="rad-tok">radius-pill</div><div class="rad-val">28 · tags, toggle</div></div>
+      <div class="rad-cell"><div class="rad-shape circle"></div><div class="rad-tok">radius-full</div><div class="rad-val">∞ · avatars</div></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="h">Elevation</div>
+    <div class="elev-stack">
+      <div class="elev-row">
+        <div class="elev-surface elev-sm"></div>
+        <div class="elev-meta"><span class="elev-name">shadow-sm</span><span class="elev-use">Cards, popovers, contextual menus</span></div>
+      </div>
+      <div class="elev-row">
+        <div class="elev-surface elev-md"></div>
+        <div class="elev-meta"><span class="elev-name">shadow-md</span><span class="elev-use">Toasts, inline notifications</span></div>
+      </div>
+      <div class="elev-row">
+        <div class="elev-surface elev-lg"></div>
+        <div class="elev-meta"><span class="elev-name">shadow-lg</span><span class="elev-use">Modals, sheets</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="preview-theme.js?v=2"></script>
+<button class="pv-theme-toggle" type="button" data-mode="align-dark" aria-label="Switch to light mode" onclick="(function(b){try{var s='ads_theme::'+location.pathname.split('/').pop().replace(/\.html?$/,'');var c=localStorage.getItem(s)||'align-dark';var n=c==='align-dark'?'align-light':'align-dark';localStorage.setItem(s,n);document.documentElement.setAttribute('data-theme',n);b.setAttribute('data-mode',n);b.querySelector('.pv-lbl').textContent=n==='align-dark'?'Light':'Dark';b.setAttribute('aria-label',n==='align-dark'?'Switch to light mode':'Switch to dark mode');}catch(e){}})(this)"><svg class="pv-sun" viewBox="0 0 20 20"><circle cx="10" cy="10" r="3.5"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="10" y1="16" x2="10" y2="18"/><line x1="2" y1="10" x2="4" y2="10"/><line x1="16" y1="10" x2="18" y2="10"/><line x1="4.3" y1="4.3" x2="5.7" y2="5.7"/><line x1="14.3" y1="14.3" x2="15.7" y2="15.7"/><line x1="4.3" y1="15.7" x2="5.7" y2="14.3"/><line x1="14.3" y1="5.7" x2="15.7" y2="4.3"/></svg><svg class="pv-moon" viewBox="0 0 20 20"><path d="M 16 12.5 A 6.5 6.5 0 1 1 7.5 4 A 5.2 5.2 0 0 0 16 12.5 Z"/></svg><span class="pv-lbl">Light</span></button>
+</body></html>
