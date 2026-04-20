@@ -223,7 +223,7 @@ body { background: var(--ads-bg-page); color: var(--ads-text-primary); font-fami
 .stack { display: flex; flex-direction: column; gap: 16px; }
 
 /* ---------- Page ---------- */
-.page { padding: 32px 40px 80px; max-width: 1600px; }
+.page { padding: 32px 40px 80px; }
 .page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
 .page-head h1 { font-size: 28px; font-weight: 500; line-height: 36px; letter-spacing: -0.01em; }
 .page-head .sub { color: var(--ads-text-muted); margin: 6px 0 0; font-size: var(--ads-size-font-body); line-height: var(--ads-size-lh-body); }
