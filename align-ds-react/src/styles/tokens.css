@@ -1,0 +1,488 @@
+/* =========================================================
+   Align Design System (ADS) — Colors & Type
+   Source: Figma file "06. Web components [0.9.0].fig"
+   Version: 0.9.0 (design library)
+
+   APPEARANCE / COLOR MODES
+   The Figma file exposes every component in two modes: "Light mode"
+   (the default) and "Dark mode". Both modes share the same signature
+   blue, the same tag tints, and the same type/spacing/radius tokens.
+   Only surfaces, text, and neutral borders flip.
+
+   We expose the two modes as named themes:
+     [data-theme="align-light"]   (default)
+     [data-theme="align-dark"]
+
+   Apply the theme by setting `data-theme` on <html> or any ancestor.
+   An `auto` mode is also provided that follows the OS via prefers-color-scheme.
+   ========================================================= */
+
+/* ---------- Fonts ---------- */
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/Roboto-variable.woff2") format("woff2-variations"),
+       url("/fonts/Roboto-variable.woff2") format("woff2"),
+       url("https://fonts.gstatic.com/s/roboto/v51/KFO7CnqEu92Fr1ME7kSn66aGLdTylUAMa3yUBHMdazQ.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ============================================================
+   MODE-INVARIANT TOKENS (shared between align-light & align-dark)
+   ============================================================ */
+:root {
+  /* Signature blues */
+  --ads-blue-500:        rgb(0, 154, 206);
+  --ads-blue-600:        rgb(2, 119, 181);
+  --ads-blue-700:        rgb(1, 89, 144);
+  --ads-blue-550:        rgb(32, 154, 214);
+  --ads-blue-50:         rgb(230, 247, 255);
+  --ads-blue-100:        rgb(176, 229, 255);
+  --ads-blue-text:       rgb(0, 87, 128);
+
+  /* Danger ladder */
+  --ads-danger-500:      rgb(207, 46, 56);
+  --ads-danger-600:      rgb(162, 27, 35);
+  --ads-danger-700:      rgb(118, 14, 19);
+
+  /* Status */
+  --ads-error-500:       rgb(212, 63, 88);
+  --ads-success-500:     rgb(0, 150, 78);
+  --ads-success-600:     rgb(37, 127, 73);
+  --ads-warning-500:     rgb(250, 142, 65);
+  --ads-info-500:        rgb(0, 154, 206);
+
+  /* Tag tints — identical in both modes (pale chips pop on both bgs) */
+  --ads-tag-blue-bg:     rgb(230, 247, 255);
+  --ads-tag-blue-br:     rgb(176, 229, 255);
+  --ads-tag-blue-fg:     rgb(0, 87, 128);
+  --ads-tag-green-bg:    rgb(220, 252, 232);
+  --ads-tag-green-br:    rgb(178, 237, 200);
+  --ads-tag-green-fg:    rgb(0, 97, 49);
+  --ads-tag-red-bg:      rgb(255, 240, 249);
+  --ads-tag-red-br:      rgb(252, 212, 236);
+  --ads-tag-red-fg:      rgb(163, 5, 100);
+  --ads-tag-orange-bg:   rgb(255, 240, 229);
+  --ads-tag-orange-br:   rgb(247, 218, 200);
+  --ads-tag-orange-fg:   rgb(160, 64, 0);
+  --ads-tag-purple-bg:   rgb(243, 235, 255);
+  --ads-tag-purple-br:   rgb(220, 205, 245);
+  --ads-tag-purple-fg:   rgb(84, 33, 150);
+  --ads-tag-magenta-bg:  rgb(255, 240, 249);
+  --ads-tag-magenta-br:  rgb(252, 212, 236);
+  --ads-tag-magenta-fg:  rgb(163, 5, 100);
+
+  /* Radii / spacing / control heights / type — all mode-invariant */
+  --ads-radius-0:        0;
+  --ads-radius-xs:       2px;
+  --ads-radius-sm:       4px;
+  --ads-radius-md:       8px;
+  --ads-radius-pill:     28px;
+  --ads-radius-full:     9999px;
+
+  --ads-space-0:         0;
+  --ads-space-1:         4px;
+  --ads-space-2:         8px;
+  --ads-space-3:         12px;
+  --ads-space-4:         16px;
+  --ads-space-5:         20px;
+  --ads-space-6:         24px;
+  --ads-space-8:         32px;
+  --ads-space-10:        40px;
+  --ads-space-16:        64px;
+
+  --ads-control-sm:      36px;
+  --ads-control-md:      44px;
+
+  --ads-font-sans:       "Roboto", "Helvetica Neue", Arial, system-ui, sans-serif;
+  --ads-font-mono:       "Roboto Mono", ui-monospace, Menlo, monospace;
+
+  --ads-text-xs:         12px;
+  --ads-text-sm:         14px;
+  --ads-text-md:         17px;
+  --ads-text-lg:         20px;
+  --ads-text-xl:         24px;
+  --ads-text-2xl:        28px;
+  --ads-text-display:    44px;
+  --ads-leading-xs:      16px;
+  --ads-leading-sm:      20px;
+  --ads-leading-btn:     18px;
+  --ads-leading-md:      24px;
+  --ads-leading-lg:      28px;
+  --ads-leading-xl:      32px;
+  --ads-leading-2xl:     36px;
+  --ads-leading-display: 52px;
+
+  --ads-duration-fast:   120ms;
+  --ads-duration-base:   180ms;
+  --ads-ease-standard:   cubic-bezier(0.2, 0, 0, 1);
+
+  --ads-focus-ring:      rgb(0, 154, 206);
+}
+
+/* ============================================================
+   ALIGN LIGHT (default)
+   Values lifted directly from "Light mode" frames.
+   ============================================================ */
+:root,
+[data-theme="align-light"] {
+  color-scheme: light;
+
+  /* Text — black with opacity ladder */
+  --ads-text-primary:    rgba(0, 0, 0, 0.93);
+  --ads-text-muted:      rgba(0, 0, 0, 0.63);
+  --ads-text-subtle:     rgba(0, 0, 0, 0.445);
+  --ads-text-disabled:   rgb(199, 199, 199);
+  --ads-text-placeholder: rgb(143, 143, 143);
+  --ads-text-label:      rgb(84, 84, 84);
+  --ads-text-strong:     rgb(23, 23, 23);
+  --ads-text-on-primary: rgb(255, 255, 255);
+
+  /* Surfaces */
+  --ads-bg-page:         rgb(244, 244, 244);
+  --ads-bg-surface:      rgb(255, 255, 255);
+  --ads-bg-muted:        rgb(245, 245, 245);
+  --ads-bg-subtle:       rgb(230, 230, 230);
+  --ads-bg-inverse:      rgb(38, 38, 38);
+  --ads-bg-inverse-2:    rgb(59, 59, 59);
+
+  /* Borders */
+  --ads-border-subtle:   rgba(0, 0, 0, 0.085);
+  --ads-border-default:  rgb(224, 224, 224);
+  --ads-border-strong:   rgb(143, 143, 143);
+
+  /* Shadows — black */
+  --ads-shadow-sm:       0 2px 12px 0 rgba(0, 0, 0, 0.125);
+  --ads-shadow-md:       0 4px 12px 0 rgba(0, 0, 0, 0.08);
+  --ads-shadow-lg:       0 8px 24px 0 rgba(0, 0, 0, 0.12);
+
+  /* Extras */
+  --ads-scrim:           rgba(0, 0, 0, 0.35);
+  --ads-icon-muted:      rgba(0, 0, 0, 0.63);
+  --ads-avatar-bg:       linear-gradient(135deg, rgb(230, 247, 255), rgb(220, 252, 232));
+  --ads-avatar-fg:       rgb(0, 87, 128);
+  --ads-scan-gradient:   linear-gradient(135deg, rgb(12, 58, 82) 0%, rgb(26, 107, 140) 60%, rgb(230, 247, 255) 100%);
+}
+
+/* ============================================================
+   ALIGN DARK
+   Values lifted from the "Dark mode" frames in the Figma file:
+     - page bg rgb(18,18,18)
+     - separator rgba(255,255,255,0.085)
+     - primary text rgb(255,255,255)
+   The alpha ladder inverts to white-alpha; surfaces step up in
+   lightness (18 → 30 → 38) matching the observed panel/tooltip
+   chrome in Tab (Dark mode) and the inverse tokens used in light.
+   ============================================================ */
+[data-theme="align-dark"] {
+  color-scheme: dark;
+
+  /* Text — white with opacity ladder */
+  --ads-text-primary:    rgba(255, 255, 255, 0.93);
+  --ads-text-muted:      rgba(255, 255, 255, 0.63);
+  --ads-text-subtle:     rgba(255, 255, 255, 0.445);
+  --ads-text-disabled:   rgba(255, 255, 255, 0.30);
+  --ads-text-placeholder: rgba(255, 255, 255, 0.40);
+  --ads-text-label:      rgba(255, 255, 255, 0.72);
+  --ads-text-strong:     rgb(245, 245, 245);
+  --ads-text-on-primary: rgb(255, 255, 255);
+
+  /* Surfaces — stepped dark, matching the file's panel chrome */
+  --ads-bg-page:         rgb(18, 18, 18);
+  --ads-bg-surface:      rgb(30, 30, 30);
+  --ads-bg-muted:        rgb(38, 38, 38);
+  --ads-bg-subtle:       rgb(59, 59, 59);
+  --ads-bg-inverse:      rgb(245, 245, 245);
+  --ads-bg-inverse-2:    rgb(224, 224, 224);
+
+  /* Borders — white-alpha mirror of light */
+  --ads-border-subtle:   rgba(255, 255, 255, 0.085);
+  --ads-border-default:  rgba(255, 255, 255, 0.14);
+  --ads-border-strong:   rgba(255, 255, 255, 0.36);
+
+  /* Shadows — darker & slightly heavier to read against dark bg */
+  --ads-shadow-sm:       0 2px 12px 0 rgba(0, 0, 0, 0.45);
+  --ads-shadow-md:       0 4px 12px 0 rgba(0, 0, 0, 0.40);
+  --ads-shadow-lg:       0 8px 24px 0 rgba(0, 0, 0, 0.55);
+
+  /* Extras */
+  --ads-scrim:           rgba(0, 0, 0, 0.65);
+  --ads-icon-muted:      rgba(255, 255, 255, 0.63);
+  --ads-avatar-bg:       linear-gradient(135deg, rgb(0, 77, 113), rgb(18, 88, 49));
+  --ads-avatar-fg:       rgb(230, 247, 255);
+  --ads-scan-gradient:   linear-gradient(135deg, rgb(8, 32, 46) 0%, rgb(15, 61, 80) 60%, rgb(32, 110, 145) 100%);
+}
+
+/* ============================================================
+   AUTO — follow the OS. Useful for prototypes where you don't
+   want to decide upfront. Sets the baseline then overrides
+   when prefers-color-scheme: dark.
+   ============================================================ */
+[data-theme="auto"] {
+  color-scheme: light dark;
+
+  --ads-text-primary:    rgba(0, 0, 0, 0.93);
+  --ads-text-muted:      rgba(0, 0, 0, 0.63);
+  --ads-text-subtle:     rgba(0, 0, 0, 0.445);
+  --ads-text-disabled:   rgb(199, 199, 199);
+  --ads-text-placeholder: rgb(143, 143, 143);
+  --ads-text-label:      rgb(84, 84, 84);
+  --ads-text-strong:     rgb(23, 23, 23);
+  --ads-text-on-primary: rgb(255, 255, 255);
+  --ads-bg-page:         rgb(244, 244, 244);
+  --ads-bg-surface:      rgb(255, 255, 255);
+  --ads-bg-muted:        rgb(245, 245, 245);
+  --ads-bg-subtle:       rgb(230, 230, 230);
+  --ads-bg-inverse:      rgb(38, 38, 38);
+  --ads-bg-inverse-2:    rgb(59, 59, 59);
+  --ads-border-subtle:   rgba(0, 0, 0, 0.085);
+  --ads-border-default:  rgb(224, 224, 224);
+  --ads-border-strong:   rgb(143, 143, 143);
+  --ads-shadow-sm:       0 2px 12px 0 rgba(0, 0, 0, 0.125);
+  --ads-shadow-md:       0 4px 12px 0 rgba(0, 0, 0, 0.08);
+  --ads-shadow-lg:       0 8px 24px 0 rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="auto"] {
+    --ads-text-primary:    rgba(255, 255, 255, 0.93);
+    --ads-text-muted:      rgba(255, 255, 255, 0.63);
+    --ads-text-subtle:     rgba(255, 255, 255, 0.445);
+    --ads-text-disabled:   rgba(255, 255, 255, 0.30);
+    --ads-text-placeholder: rgba(255, 255, 255, 0.40);
+    --ads-text-label:      rgba(255, 255, 255, 0.72);
+    --ads-text-strong:     rgb(245, 245, 245);
+    --ads-bg-page:         rgb(18, 18, 18);
+    --ads-bg-surface:      rgb(30, 30, 30);
+    --ads-bg-muted:        rgb(38, 38, 38);
+    --ads-bg-subtle:       rgb(59, 59, 59);
+    --ads-bg-inverse:      rgb(245, 245, 245);
+    --ads-bg-inverse-2:    rgb(224, 224, 224);
+    --ads-border-subtle:   rgba(255, 255, 255, 0.085);
+    --ads-border-default:  rgba(255, 255, 255, 0.14);
+    --ads-border-strong:   rgba(255, 255, 255, 0.36);
+    --ads-shadow-sm:       0 2px 12px 0 rgba(0, 0, 0, 0.45);
+    --ads-shadow-md:       0 4px 12px 0 rgba(0, 0, 0, 0.40);
+    --ads-shadow-lg:       0 8px 24px 0 rgba(0, 0, 0, 0.55);
+    --ads-scrim:           rgba(0, 0, 0, 0.65);
+    --ads-icon-muted:      rgba(255, 255, 255, 0.63);
+    --ads-avatar-bg:       linear-gradient(135deg, rgb(0, 77, 113), rgb(18, 88, 49));
+    --ads-avatar-fg:       rgb(230, 247, 255);
+    --ads-scan-gradient:   linear-gradient(135deg, rgb(8, 32, 46) 0%, rgb(15, 61, 80) 60%, rgb(32, 110, 145) 100%);
+  }
+}
+
+/* ---------- Semantic element defaults ---------- */
+html, body {
+  font-family: var(--ads-font-sans);
+  color: var(--ads-text-primary);
+  background: var(--ads-bg-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--ads-duration-base) var(--ads-ease-standard),
+              color var(--ads-duration-base) var(--ads-ease-standard);
+}
+
+h1, .ads-h1 { font-family: var(--ads-font-sans); font-weight: 500; font-size: 28px; line-height: 36px; letter-spacing: -0.01em; color: var(--ads-text-primary); margin: 0; }
+h2, .ads-h2 { font-family: var(--ads-font-sans); font-weight: 500; font-size: 20px; line-height: 28px; color: var(--ads-text-primary); margin: 0; }
+h3, .ads-h3 { font-family: var(--ads-font-sans); font-weight: 500; font-size: 17px; line-height: 24px; color: var(--ads-text-primary); margin: 0; }
+h4, .ads-h4 { font-family: var(--ads-font-sans); font-weight: 500; font-size: 14px; line-height: 20px; color: var(--ads-text-primary); margin: 0; }
+p, .ads-body { font-family: var(--ads-font-sans); font-weight: 400; font-size: 14px; line-height: 20px; color: var(--ads-text-primary); margin: 0; }
+small, .ads-caption { font-family: var(--ads-font-sans); font-weight: 400; font-size: 12px; line-height: 16px; color: var(--ads-text-muted); }
+.ads-display { font-family: var(--ads-font-sans); font-weight: 300; font-size: 44px; line-height: 52px; letter-spacing: -0.015em; color: var(--ads-text-primary); margin: 0; }
+.ads-button-label { font-family: var(--ads-font-sans); font-size: 14px; line-height: 18px; font-weight: 400; text-align: center; }
+.ads-field-label { font-family: var(--ads-font-sans); font-size: 12px; line-height: 16px; color: var(--ads-text-label); }
+.ads-helper { font-family: var(--ads-font-sans); font-size: 12px; line-height: 16px; color: var(--ads-text-label); }
+a, .ads-link { color: var(--ads-blue-550); text-decoration: none; transition: color var(--ads-duration-fast) var(--ads-ease-standard); }
+a:hover, .ads-link:hover { color: var(--ads-blue-600); }
+a:active, .ads-link:active { color: var(--ads-blue-700); }
+
+.ads-focus:focus-visible,
+.ads-focusable:focus-visible {
+  outline: 1px solid var(--ads-focus-ring);
+  outline-offset: 1px;
+  box-shadow: inset 0 0 0 1px var(--ads-bg-surface);
+}
+
+/* ============================================================
+   SIZE MODE: WEB (default — current values)
+   Switched via data-size-mode="web" | "scanner" on <html>.
+   ============================================================ */
+[data-size-mode="web"], :root {
+  /* Typography */
+  --ads-size-font-body: 14px;
+  --ads-size-lh-body: 20px;
+  --ads-size-font-label: 12px;
+  --ads-size-lh-label: 16px;
+  --ads-size-font-h3: 17px;
+  --ads-size-lh-h3: 24px;
+  --ads-size-font-btn: 14px;
+  --ads-size-lh-btn: 18px;
+
+  /* Buttons */
+  --ads-size-btn-md-h: 44px;
+  --ads-size-btn-md-px: 16px;
+  --ads-size-btn-md-radius: 4px;
+  --ads-size-btn-sm-h: 36px;
+  --ads-size-btn-sm-px: 12px;
+  --ads-size-btn-sm-radius: 4px;
+
+  /* Fields */
+  --ads-size-field-h: 44px;
+  --ads-size-field-px: 16px;
+  --ads-size-field-radius: 4px;
+  --ads-size-field-font: 14px;
+  --ads-size-field-lh: 18px;
+
+  /* Checkbox / Radio / Toggle */
+  --ads-size-cbx: 20px;
+  --ads-size-cbx-radius: 4px;
+  --ads-size-rad: 20px;
+  --ads-size-toggle-w: 44px;
+  --ads-size-toggle-h: 28px;
+  --ads-size-toggle-thumb: 24px;
+  --ads-size-control-gap: 10px;
+
+  /* Tags */
+  --ads-size-tag-py: 4px;
+  --ads-size-tag-px: 10px;
+  --ads-size-tag-radius: 28px;
+  --ads-size-tag-font: 12px;
+  --ads-size-tag-lh: 16px;
+
+  /* Tab */
+  --ads-size-tab-py: 12px;
+  --ads-size-tab-px: 16px;
+  --ads-size-tab-font: 14px;
+
+  /* Avatar */
+  --ads-size-avatar-xs: 24px;
+  --ads-size-avatar-sm: 32px;
+  --ads-size-avatar-md: 40px;
+  --ads-size-avatar-lg: 52px;
+  --ads-size-avatar-xs-font: 11px;
+  --ads-size-avatar-sm-font: 12px;
+  --ads-size-avatar-md-font: 14px;
+  --ads-size-avatar-lg-font: 20px;
+
+  /* Toast */
+  --ads-size-toast-pad: 12px;
+  --ads-size-toast-radius: 4px;
+  --ads-size-toast-gap: 8px;
+
+  /* Modal */
+  --ads-size-modal-radius: 4px;
+  --ads-size-modal-pad: 20px;
+
+  /* Accordion */
+  --ads-size-acc-head-py: 16px;
+  --ads-size-acc-head-px: 20px;
+  --ads-size-acc-body-px: 20px;
+  --ads-size-acc-body-pb: 20px;
+  --ads-size-acc-radius: 4px;
+
+  /* Topbar */
+  --ads-size-topbar-h: 64px;
+  --ads-size-topbar-px: 24px;
+
+  /* Search */
+  --ads-size-search-h: 36px;
+  --ads-size-search-px: 12px;
+  --ads-size-search-radius: 4px;
+
+  /* Card */
+  --ads-size-card-radius: 4px;
+  --ads-size-card-head-px: 20px;
+  --ads-size-card-head-py: 16px;
+  --ads-size-card-body-pad: 20px;
+
+  /* Nav item */
+  --ads-size-nav-h: 40px;
+  --ads-size-nav-gap: 16px;
+  --ads-size-nav-font: 14px;
+}
+
+/* ============================================================
+   SIZE MODE: SCANNER (touch-optimized, from Figma 06. Scanner core 1.0.0)
+   ============================================================ */
+[data-size-mode="scanner"] {
+  --ads-size-font-body: 18px;
+  --ads-size-lh-body: 28px;
+  --ads-size-font-label: 16px;
+  --ads-size-lh-label: 24px;
+  --ads-size-font-h3: 18px;
+  --ads-size-lh-h3: 28px;
+  --ads-size-font-btn: 18px;
+  --ads-size-lh-btn: 28px;
+
+  --ads-size-btn-md-h: 48px;
+  --ads-size-btn-md-px: 12px;
+  --ads-size-btn-md-radius: 4px;
+  --ads-size-btn-sm-h: 36px;
+  --ads-size-btn-sm-px: 8px;
+  --ads-size-btn-sm-radius: 4px;
+
+  --ads-size-field-h: 60px;
+  --ads-size-field-px: 16px;
+  --ads-size-field-radius: 4px;
+  --ads-size-field-font: 18px;
+  --ads-size-field-lh: 28px;
+
+  --ads-size-cbx: 24px;
+  --ads-size-cbx-radius: 4px;
+  --ads-size-rad: 20px;
+  --ads-size-toggle-w: 52px;
+  --ads-size-toggle-h: 32px;
+  --ads-size-toggle-thumb: 28px;
+  --ads-size-control-gap: 8px;
+
+  --ads-size-tag-py: 8px;
+  --ads-size-tag-px: 12px;
+  --ads-size-tag-radius: 28px;
+  --ads-size-tag-font: 16px;
+  --ads-size-tag-lh: 24px;
+
+  --ads-size-tab-py: 16px;
+  --ads-size-tab-px: 16px;
+  --ads-size-tab-font: 18px;
+
+  --ads-size-avatar-xs: 28px;
+  --ads-size-avatar-sm: 32px;
+  --ads-size-avatar-md: 40px;
+  --ads-size-avatar-lg: 52px;
+  --ads-size-avatar-xs-font: 12px;
+  --ads-size-avatar-sm-font: 14px;
+  --ads-size-avatar-md-font: 16px;
+  --ads-size-avatar-lg-font: 20px;
+
+  --ads-size-toast-pad: 16px;
+  --ads-size-toast-radius: 4px;
+  --ads-size-toast-gap: 16px;
+
+  --ads-size-modal-radius: 4px;
+  --ads-size-modal-pad: 24px;
+
+  --ads-size-acc-head-py: 16px;
+  --ads-size-acc-head-px: 16px;
+  --ads-size-acc-body-px: 16px;
+  --ads-size-acc-body-pb: 16px;
+  --ads-size-acc-radius: 4px;
+
+  --ads-size-topbar-h: 72px;
+  --ads-size-topbar-px: 16px;
+
+  --ads-size-search-h: 60px;
+  --ads-size-search-px: 16px;
+  --ads-size-search-radius: 4px;
+
+  --ads-size-card-radius: 4px;
+  --ads-size-card-head-px: 16px;
+  --ads-size-card-head-py: 16px;
+  --ads-size-card-body-pad: 16px;
+
+  --ads-size-nav-h: 48px;
+  --ads-size-nav-gap: 12px;
+  --ads-size-nav-font: 16px;
+}
